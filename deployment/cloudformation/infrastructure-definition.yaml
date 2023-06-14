@@ -209,7 +209,7 @@ Resources:
                   - ''' >/dev/null 2>&1 </dev/null); (( $? != 0 ))'           
     CreationPolicy:
       ResourceSignal:
-        Timeout: PT5M
+        Timeout: PT10M
         
     Properties:
       ImageId: !Ref ImageId
