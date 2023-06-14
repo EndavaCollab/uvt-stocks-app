@@ -1,20 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS CloudFormation Template for Stock App Deployment
 Parameters:
-  KeyName:
-    Description: Name of an existing EC2 KeyPair to enable SSH access to the instances
-    Type: AWS::EC2::KeyPair::KeyName
-    Default: demo-bogdan
-    ConstraintDescription: must be the name of an existing EC2 KeyPair.
-
-  SSHLocation:
-    Description: The IP address range that can be used to SSH to the EC2 instances
-    Type: String
-    MinLength: '9'
-    MaxLength: '18'
-    Default: 79.114.11.6/32
-    AllowedPattern: "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})"
-    ConstraintDescription: must be a valid IP CIDR range of the form x.x.x.x/x.
 
   ImageId:
     Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
@@ -29,22 +15,46 @@ Resources:
       - IpProtocol: tcp
         FromPort: 80
         ToPort: 80
-        CidrIp: 79.114.11.6/32
-      - IpProtocol: tcp
-        FromPort: 22
-        ToPort: 22
-        CidrIp: !Ref SSHLocation
+        CidrIp: 79.113.84.130/32
+
+  Ec2InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles: [ !Ref Ec2InstanceRole ]
+  Ec2InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      ManagedPolicyArns:
+        # ********** This is really the only adjustment we need to make to enable use of SSM Session Manager
+        #            All the AWS::CloudFormation::Init and cloud init script work is setting up cloudwatch logs
+        #            to give visibility to the SSM Agent actions.
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+      AssumeRolePolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: [ ec2.amazonaws.com ]
+            Action:
+              - sts:AssumeRole
+      Path: /
 
   WebServerHost:
+    # By default, AWS Systems Manager doesn't have permission to perform actions on your instances.
+  # You must grant access by using an AWS Identity and Access Management (IAM) instance profile.
+  # https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-configuring-access-role.html
+  
     Type: AWS::EC2::Instance
     Metadata:
-      Comment: Install a simple PHP application
+      Comment: Prepare the EC2 for app deployment
       AWS::CloudFormation::Init:
         config:
           packages:
             yum:
               httpd: []
-              php: []
+              java-17-amazon-corretto-headless: []
+              https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm: []
+              mysql-community-server: []
           groups:
             apache: {}
           users:
@@ -111,6 +121,9 @@ Resources:
               httpd:
                 enabled: 'true'
                 ensureRunning: 'true'
+              mysqld:
+                enabled: 'true'
+                ensureRunning: 'true'
               cfn-hup:
                 enable: 'true'
                 ensureRunning: 'true'
@@ -123,8 +136,8 @@ Resources:
         
     Properties:
       ImageId: !Ref ImageId
-      KeyName: !Ref KeyName
       InstanceType: t2.micro
+      IamInstanceProfile: !Ref Ec2InstanceProfile
       SecurityGroups:
       - !Ref WebServerSecurityGroup
       UserData:
