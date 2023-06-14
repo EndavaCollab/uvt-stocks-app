@@ -53,8 +53,7 @@ Resources:
             yum:
               httpd: []
               java-17-amazon-corretto-headless: []
-              https://dev.mysql.com/get/mysql80-community-release-el7-5.noarch.rpm: []
-              mysql-community-server: []
+              mariadb-server: []
           groups:
             apache: {}
           users:
@@ -121,7 +120,7 @@ Resources:
               httpd:
                 enabled: 'true'
                 ensureRunning: 'true'
-              mysqld:
+              mariadb:
                 enabled: 'true'
                 ensureRunning: 'true'
               cfn-hup:
