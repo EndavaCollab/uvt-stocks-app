@@ -1,7 +1,41 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: AWS CloudFormation Template for Stock App Deployment
 Parameters:
-
+  DBName:
+    Default: stocks
+    Description: MySQL database name
+    Type: String
+    MinLength: '1'
+    MaxLength: '64'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters
+  DBUser:
+    NoEcho: 'true'
+    Description: Username for MySQL database access
+    Default: dev
+    Type: String
+    MinLength: '1'
+    MaxLength: '16'
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9]*'
+    ConstraintDescription: Must begin with a letter and contain only alphanumeric characters
+  DBPassword:
+    NoEcho: 'true'
+    Description: Password for MySQL database access
+    Default: R5q7YDRp
+    Type: String
+    MinLength: '1'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: Must contain only alphanumeric characters
+  DBRootPassword:
+    NoEcho: 'true'
+    Description: Root password for MySQL
+    Default: R5q7YDRp
+    Type: String
+    MinLength: '1'
+    MaxLength: '41'
+    AllowedPattern: '[a-zA-Z0-9]*'
+    ConstraintDescription: Must contain only alphanumeric characters
   ImageId:
     Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
     Default: /aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2
@@ -48,7 +82,11 @@ Resources:
     Metadata:
       Comment: Prepare the EC2 for app deployment
       AWS::CloudFormation::Init:
-        config:
+        configSets:
+          InstallAndRun:
+            - Install
+            - Configure
+        Install:
           packages:
             yum:
               httpd: []
@@ -63,6 +101,24 @@ Resources:
           sources:
             "/home/ec2-user/aws-cli": "https://github.com/aws/aws-cli/tarball/master"
           files:
+            "/tmp/setup.mysql":
+              content: !Join 
+                - ''
+                - - 'CREATE DATABASE '
+                  - !Ref DBName
+                  - |
+                    ;
+                  - 'GRANT ALL ON '
+                  - !Ref DBName
+                  - .* TO '
+                  - !Ref DBUser
+                  - '''@localhost IDENTIFIED BY '''
+                  - !Ref DBPassword
+                  - |
+                    ';
+              mode: '000400'
+              owner: root
+              group: root
             "/tmp/cwlogs/apacheaccess.conf":
               content: !Sub |
                 [general]
@@ -108,13 +164,7 @@ Resources:
                 action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource WebServerHost --region ${AWS::Region}
               mode: "000400"
               owner: "root"
-              group: "root"            
-          commands:
-            test:
-              command: "echo \"$MAGIC\" > test.txt"
-              env:
-                MAGIC: "I come from the environment!"
-              cwd: "~"
+              group: "root"         
           services:
             sysvinit:
               httpd:
@@ -128,10 +178,38 @@ Resources:
                 ensureRunning: 'true'
                 files:
                   - "/etc/cfn/cfn-hup.conf"
-                  - "/etc/cfn/hooks.d/cfn-auto-reloader.conf"      
+                  - "/etc/cfn/hooks.d/cfn-auto-reloader.conf"    
+        Configure:
+          commands:
+            01_set_mysql_root_password:
+              command: !Join 
+                - ''
+                - - mysqladmin -u root password '
+                  - !Ref DBRootPassword
+                  - ''''
+              test: !Join 
+                - ''
+                - - '$(mysql '
+                  - !Ref DBName
+                  - ' -u root --password='''
+                  - !Ref DBRootPassword
+                  - ''' >/dev/null 2>&1 </dev/null); (( $? != 0 ))'
+            02_create_database:
+              command: !Join 
+                - ''
+                - - mysql -u root --password='
+                  - !Ref DBRootPassword
+                  - ''' < /tmp/setup.mysql'
+              test: !Join 
+                - ''
+                - - '$(mysql '
+                  - !Ref DBName
+                  - ' -u root --password='''
+                  - !Ref DBRootPassword
+                  - ''' >/dev/null 2>&1 </dev/null); (( $? != 0 ))'           
     CreationPolicy:
       ResourceSignal:
-        Timeout: PT15M
+        Timeout: PT5M
         
     Properties:
       ImageId: !Ref ImageId
