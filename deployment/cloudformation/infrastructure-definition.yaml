@@ -161,7 +161,7 @@ Resources:
                 [cfn-auto-reloader-hook]
                 triggers=post.update
                 path=Resources.WebServerHost.Metadata.AWS::CloudFormation::Init
-                action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource WebServerHost --region ${AWS::Region}
+                action=/opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --configsets InstallAndRun --resource WebServerHost --region ${AWS::Region}
               mode: "000400"
               owner: "root"
               group: "root"         
@@ -226,7 +226,7 @@ Resources:
             yum install -y aws-cfn-bootstrap
             
             # Start cfn-init
-            /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --resource WebServerHost --region ${AWS::Region}
+            /opt/aws/bin/cfn-init -v --stack ${AWS::StackName} --configsets InstallAndRun --resource WebServerHost --region ${AWS::Region}
             
             # cfn-init completed so signal success or not
             /opt/aws/bin/cfn-signal -e $? --stack ${AWS::StackName} --resource WebServerHost --region ${AWS::Region}
