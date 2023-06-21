@@ -14,13 +14,13 @@ artifacts:
     - '**/*'
   secondary-artifacts:
     api:
-      files:
-        - stocks-app-api/build/libs/*.jar
-      name: stocks-app-api-artifact
+      base-directory: stocks-app-api/build/libs/
+      files: 
+        - '*.jar'
     ui:
+      base-directory: stocks-app-ui/build/libs/
       files:
-        - stocks-app-ui/build/libs/*.jar
-      name: stocks-app-ui-artifact
+        - '*.jar'
 cache:
   paths:
     - '.gradle/caches/**/*'
