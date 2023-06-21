@@ -3,10 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
       java: corretto17
-    commands:
-      - npm install
   build:
     commands:
       - ./gradlew clean build
