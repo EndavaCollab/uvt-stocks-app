@@ -3,12 +3,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 18
     commands:
       - npm install
   build:
     commands:
       - npm run build --prod
+      - ./gradlew clean build
 artifacts:
   files:
     - '**/*'
