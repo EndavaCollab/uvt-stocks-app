@@ -11,7 +11,7 @@ phases:
 artifacts:
   files:
     - '*-all.jar'
-  base-directory: '/stocks-app-api/build/libs'
+  base-directory: '/root/stocks-app-api/build/libs'
 cache:
   paths:
     - '/root/.gradle/caches/**/*' 
