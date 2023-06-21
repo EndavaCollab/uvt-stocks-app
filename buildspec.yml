@@ -10,7 +10,7 @@ phases:
       - ./gradlew clean build
 artifacts:
   files:
-    - '**.*'
+    - '**/*'
   secondary-artifacts:
     ui-artifact:
       files:
