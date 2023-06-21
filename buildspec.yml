@@ -19,7 +19,7 @@ artifacts:
       name: stocks-app-api-artifact
     ui:
       files:
-        - stocks-app-ui/build/libs/*jar
+        - stocks-app-ui/build/libs/*.jar
       name: stocks-app-ui-artifact
 cache:
   paths:
