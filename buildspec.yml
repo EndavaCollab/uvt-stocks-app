@@ -4,7 +4,7 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
-      java: semeru-17
+      java: scorretto17
     commands:
       - npm install
   build:
