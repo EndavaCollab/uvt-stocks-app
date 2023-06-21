@@ -8,19 +8,23 @@ phases:
     commands:
       - chmod +x gradlew
       - ./gradlew clean build
+
 artifacts:
   files:
     - '**/*'
-  secondary-artifacts:
-    ui-artifact:
-      files:
-        - '*.jar'
-      base-directory: 'stocks-app-ui/build/libs'
-    api-artifact:
-      files:
-        - '*.jar'
-      base-directory: 'stocks-app-api/build/libs'  
+
+secondary-artifacts:
+  ui-artifact:
+    files:
+      - '*.jar'
+    base-directory: 'stocks-app-ui/build/libs'
+
+  api-artifact:
+    files:
+      - '*.jar'
+    base-directory: 'stocks-app-api/build/libs'
+
 cache:
   paths:
-    - '.gradle/caches/**/*' 
+    - '.gradle/caches/**/*'
     - '.gradle/wrapper/**/*'
