@@ -4,7 +4,7 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
-      java: scorretto17
+      java: corretto17
     commands:
       - npm install
   build:
