@@ -6,7 +6,8 @@ phases:
       java: corretto17
   build:
     commands:
-      - gradlew clean build
+      - chmod +x gradlew
+      - ./gradlew clean build
 artifacts:
   files:
     - '**/*'
