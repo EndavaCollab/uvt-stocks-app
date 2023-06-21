@@ -11,16 +11,8 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
-  secondary-artifacts:
-    api:
-      base-directory: stocks-app-api/build/libs/
-      files: 
-        - '*.jar'
-    ui:
-      base-directory: stocks-app-ui/build/libs/
-      files:
-        - '*.jar'
+    - 'stocks-app-api/build/libs/*.jar'
+    - 'stocks-app-ui/build/libs/*.jar'
 cache:
   paths:
     - '.gradle/caches/**/*'
