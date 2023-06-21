@@ -4,11 +4,11 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
+      java: semeru-17
     commands:
       - npm install
   build:
     commands:
-      - npm run build --prod
       - ./gradlew clean build
 artifacts:
   files:
