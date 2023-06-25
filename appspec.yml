@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: stocks-app-api-0.0.1-SNAPSHOT.jar
+    destination: /stocks-app-api
+hooks:
+  ApplicationStart:
+    - location: scripts/start.sh
+      timeout: 3600
+  # ApplicationStop:
+  #   - location: scripts/stop_server
+  #     timeout: 300
+  #     runas: root
+
