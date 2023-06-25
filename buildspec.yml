@@ -10,8 +10,9 @@ phases:
       - ./gradlew clean build
 
 artifacts:
+  base-directory: ${CODEBUILD_SRC_DIR}/
   files:
-    - '**/README.md'
+    - 'README.md'
   secondary-artifacts:
     backend_artifact:
       base-directory: stocks-app-api/build/libs/
