@@ -4,6 +4,18 @@ files:
   - source: stocks-app-api-0.0.1-SNAPSHOT.jar
     destination: /stocks-app-api
 hooks:
+  BeforeInstall:
+    - location: deployment/scripts/ras.sh
+      timeout: 300
+      runas: root
+  Install:
+    - location: deployment/scripts/ras.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: deployment/scripts/ras.sh
+      timeout: 300
+      runas: root
   ApplicationStart:
     - location: deployment/scripts/start.sh
       timeout: 3600
