@@ -10,14 +10,18 @@ phases:
       - ./gradlew clean build
 
 artifacts:
+  files:
+    - '**/*'
   secondary-artifacts:
     backend_artifact:
+      base-directory: stocks-app-api/build/libs/
       files:
-        - 'stocks-app-api/build/libs/*.jar'
+        - '*SNAPSHOT.jar'
       name: api-artifact
     frontend_artifact:
+      base-directory: stocks-app-ui/build/libs/
       files:
-        - 'stocks-app-ui/build/libs/*.jar'
+        - '*.jar'
       name: ui-artifact
 cache:
   paths:
