@@ -5,7 +5,7 @@ files:
     destination: /stocks-app-api
 hooks:
   ApplicationStart:
-    - location: scripts/start.sh
+    - location: deployment/scripts/start.sh
       timeout: 3600
   # ApplicationStop:
   #   - location: scripts/stop_server
