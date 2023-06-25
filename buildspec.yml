@@ -11,11 +11,11 @@ phases:
 
 artifacts:
   secondary-artifacts:
-    backend-artifact:
+    backend_artifact:
       files:
         - 'stocks-app-api/build/libs/*.jar'
       name: api-artifact
-    frontend-artifact:
+    frontend_artifact:
       files:
         - 'stocks-app-ui/build/libs/*.jar'
       name: ui-artifact
