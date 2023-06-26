@@ -97,7 +97,9 @@ Resources:
         Install:
           commands:
             mariadb:
-              command: "curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash"
+              command: "sudo amazon-linux-extras enable mariadb10.5"
+            clean:
+              command: "sudo yum clean metadata"
           packages:
             yum:
               httpd: []
