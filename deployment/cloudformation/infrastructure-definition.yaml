@@ -104,7 +104,8 @@ Resources:
             yum:
               httpd: []
               java-17-amazon-corretto-headless: []
-              mariadb-server: []
+            amazon-linux-extras:
+              mariadb: []  
           groups:
             apache: {}
           users:
