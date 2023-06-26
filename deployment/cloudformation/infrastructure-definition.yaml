@@ -100,12 +100,12 @@ Resources:
               command: "sudo amazon-linux-extras enable mariadb10.5"
             clean:
               command: "sudo yum clean metadata"
+            installMariaDB:
+              command: "sudo amazon-linux-extras install mariadb10.5"  
           packages:
             yum:
               httpd: []
-              java-17-amazon-corretto-headless: []
-            amazon-linux-extras:
-              mariadb10.5: []  
+              java-17-amazon-corretto-headless: [] 
           groups:
             apache: {}
           users:
