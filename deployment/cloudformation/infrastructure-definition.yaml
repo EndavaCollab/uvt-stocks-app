@@ -87,6 +87,9 @@ Resources:
             - Install
             - Configure
         Install:
+          commands:
+            mariadb:
+              command: "curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash"
           packages:
             yum:
               httpd: []
