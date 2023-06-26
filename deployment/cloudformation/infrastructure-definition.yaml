@@ -50,6 +50,14 @@ Resources:
         FromPort: 80
         ToPort: 80
         CidrIp: 79.113.84.130/32
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: 5.15.100.234/32
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 5.15.100.234/32    
 
   Ec2InstanceProfile:
     Type: AWS::IAM::InstanceProfile
