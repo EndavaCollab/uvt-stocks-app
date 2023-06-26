@@ -105,7 +105,7 @@ Resources:
               httpd: []
               java-17-amazon-corretto-headless: []
             amazon-linux-extras:
-              mariadb: []  
+              mariadb10.5: []  
           groups:
             apache: {}
           users:
