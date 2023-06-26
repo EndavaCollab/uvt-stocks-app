@@ -17,7 +17,7 @@ Parameters:
     Default: CodeDeployTag
     AllowedPattern: '[\x20-\x7E]*'
     ConstraintDescription: Can contain only ASCII characters.
-  TagValue:
+  TagValue:         
     Description: The EC2 tag value that identifies this as a target for deployments.
     Type: String
     Default: CodeDeployDemo
