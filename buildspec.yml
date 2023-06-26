@@ -12,18 +12,21 @@ phases:
 artifacts:
   base-directory: ${CODEBUILD_SRC_DIR}/
   files:
-    - 'README.md'
-  secondary-artifacts:
-    backend_artifact:
-      base-directory: stocks-app-api/build/libs/
-      files:
-        - '*SNAPSHOT.jar'
-      name: api-artifact
-    frontend_artifact:
-      base-directory: stocks-app-ui/build/libs/
-      files:
-        - '*.jar'
-      name: ui-artifact
+    - 'appspec.yml'
+    - 'deployment/scripts/*'
+    - stocks-app-api/build/libs/*SNAPSHOT.jar
+    - stocks-app-ui/build/libs/*.jar
+  # secondary-artifacts:
+  #   backend_artifact:
+  #     base-directory: stocks-app-api/build/libs/
+  #     files:
+  #       - '*SNAPSHOT.jar'
+  #     name: api-artifact
+  #   frontend_artifact:
+  #     base-directory: stocks-app-ui/build/libs/
+  #     files:
+  #       - '*.jar'
+  #     name: ui-artifact
 cache:
   paths:
     - '.gradle/caches/**/*'
