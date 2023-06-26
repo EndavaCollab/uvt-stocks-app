@@ -3,7 +3,7 @@ os: linux
 files:
   - source: stocks-app-api/build/libs/stocks-app-api-0.0.1-SNAPSHOT.jar
     destination: /stocks-app-api
-  - source: stocks-app-ui/build/libs/*.jar
+  - source: stocks-app-ui/build/libs/stocks-app-ui-0.0.1-SNAPSHOT.jar
     destination: /tmp/ui
 hooks:
   BeforeInstall:
