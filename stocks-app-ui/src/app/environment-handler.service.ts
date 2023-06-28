@@ -10,6 +10,6 @@ export class EnvironmentHandlerService {
     console.log(window.location);
     console.log(window.location.origin);
 
-    return window.location.origin;
+    return `${window.location.origin}:8080`;
   }
 }
