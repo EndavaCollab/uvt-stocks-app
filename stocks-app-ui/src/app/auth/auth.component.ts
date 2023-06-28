@@ -1,3 +1,4 @@
+import { EnvironmentHandlerService } from './../environment-handler.service';
 import { UserService } from './../user-preview/user.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -62,6 +63,19 @@ export class AuthComponent {
         console.log(err);
       }
     );
+
+    // this.userService.setUser({
+    //   email: this.loginForm.value.email,
+    //   username: this.loginForm.value.email,
+    //   imageUrl:
+    //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx0hLwdzwhC7R2B2pn7e9-YYqpSiTQsZMDDA&usqp=CAU',
+    // });
+
+    // console.log(this.userService.getUser());
+
+    // this.resetLoginForm();
+
+    // this.router.navigate(['/', 'dashboard']);
   }
 
   onRegister(): void {

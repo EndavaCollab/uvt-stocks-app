@@ -1,3 +1,4 @@
+import { EnvironmentHandlerService } from './../environment-handler.service';
 import { UserService } from './../user-preview/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -8,14 +9,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private environmentHandlerService: EnvironmentHandlerService
+  ) {}
 
   public logIn(payload: { email: string; password: string }): Observable<any> {
     let body: any = {
       email: payload.email,
       password: payload.password,
     };
-    console.log(`${environment.apiUrl}/api/auth/login`);
+    console.log(
+      `${this.environmentHandlerService.getCurrentApiUrl()}/api/auth/login`
+    );
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -24,7 +30,7 @@ export class AuthService {
     };
 
     return this.httpClient.post(
-      `${environment.apiUrl}/api/auth/login`,
+      `${this.environmentHandlerService.getCurrentApiUrl()}/api/auth/login`,
       body,
       httpOptions
     );
@@ -43,7 +49,7 @@ export class AuthService {
       reTypePassword: payload.reTypePassword,
     };
     return this.httpClient.post(
-      `${environment.apiUrl}/api/auth/register`,
+      `${this.environmentHandlerService.getCurrentApiUrl()}/api/auth/register`,
       body
     );
   }
