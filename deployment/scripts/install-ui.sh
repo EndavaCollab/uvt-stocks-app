@@ -1,8 +1,5 @@
 #! /bin/bash
 
-rm -rf /tmp/ui/public 2>/dev/null
-rm -rf /var/www/html/* 2>/dev/null
-
-unzip /tmp/ui/stocks-app-ui-0.0.1-SNAPSHOT.jar -d /tmp/ui
-cp -pr /tmp/ui/public/*  /var/www/html/
-chown -R apache:apache /var/www/html/*
+unzip /tmp/ui/stocks-app-ui-0.0.1-SNAPSHOT.jar -d /tmp/ui 2>/dev/null
+cp -pr /tmp/ui/public/*  /var/www/html/ 2>/dev/null
+chown -R apache:apache /var/www/html/* 2>/dev/null
