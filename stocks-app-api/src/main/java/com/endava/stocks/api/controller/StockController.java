@@ -13,7 +13,6 @@ import java.util.Arrays;
 
 @RestController
 @RequestMapping("/api/stocks")
-@CrossOrigin(origins = "http://localhost:4200")
 public class StockController {
 
     private final StockService stockService;
