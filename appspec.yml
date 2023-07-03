@@ -6,14 +6,14 @@ files:
   - source: stocks-app-ui/build/libs/stocks-app-ui-0.0.1-SNAPSHOT.jar
     destination: /tmp/ui
 hooks:
-  # BeforeInstall:
-  #   - location: deployment/scripts/beforeInstall.sh
-  #     timeout: 300
-  #     runas: root
-  Install:
+  BeforeInstall:
     - location: deployment/scripts/install-ui.sh
       timeout: 300
       runas: root
+  # Install:
+  #   - location: deployment/scripts/install-ui.sh
+  #     timeout: 300
+  #     runas: root
   # AfterInstall:
   #   - location: deployment/scripts/ras.sh
   #     timeout: 300
