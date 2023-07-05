@@ -85,20 +85,22 @@ export class AuthComponent {
     ) {
       alert('Passwords do not match!');
     } else {
-      this.authService.register(this.registerForm.value).subscribe(
-        (response: any) => {
-          console.log('Register with success!');
+      // this.authService.register(this.registerForm.value).subscribe(
+      //   (response: any) => {
+      //     console.log('Register with success!');
 
-          this.viewType = 'login';
-          this.resetRegisterForm();
+      //     this.viewType = 'login';
+      //     this.resetRegisterForm();
 
-          console.log(response);
-        },
-        (err) => {
-          console.log('Register with failed!');
-          console.log(err);
-        }
-      );
+      //     console.log(response);
+      //   },
+      //   (err) => {
+      //     console.log('Register with failed!');
+      //     console.log(err);
+      //   }
+      // );
+      this.viewType = 'login';
+      this.resetRegisterForm();
     }
   }
 
