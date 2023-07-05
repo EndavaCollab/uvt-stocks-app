@@ -7,9 +7,8 @@ export class EnvironmentHandlerService {
   constructor() {}
 
   public getCurrentApiUrl(): string {
-    console.log(window.location);
-    console.log(window.location.origin);
+    console.log(window.location.hostname);
 
-    return `${window.location.origin}:8080`;
+    return `${window.location.hostname}:8080`;
   }
 }

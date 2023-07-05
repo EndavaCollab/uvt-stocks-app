@@ -36,46 +36,47 @@ export class AuthComponent {
   }
 
   onLogIn(): void {
-    this.authService.logIn(this.loginForm.value).subscribe(
-      (response: any) => {
-        if (response.message != 'Bad credentials!') {
-          console.log('Login with success!');
+    // this.authService.logIn(this.loginForm.value).subscribe(
+    //   (response: any) => {
+    //   console.log(response);
+    //     if (response.message != 'Bad credentials!') {
+    //       console.log('Login with success!');
 
-          this.userService.setUser({
-            email: response.data[0].email,
-            username: response.data[0].username,
-            imageUrl:
-              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx0hLwdzwhC7R2B2pn7e9-YYqpSiTQsZMDDA&usqp=CAU',
-          });
+    //       this.userService.setUser({
+    //         email: response.data[0].email,
+    //         username: response.data[0].username,
+    //         imageUrl:
+    //           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx0hLwdzwhC7R2B2pn7e9-YYqpSiTQsZMDDA&usqp=CAU',
+    //       });
 
-          console.log(this.userService.getUser());
+    //       console.log(this.userService.getUser());
 
-          this.resetLoginForm();
+    //       this.resetLoginForm();
 
-          this.router.navigate(['/', 'dashboard']);
-        } else {
-          alert(response.message);
-        }
-      },
-      (err) => {
-        console.log('Login with failed!');
-        alert('Invalid credentials!');
-        console.log(err);
-      }
-    );
+    //       this.router.navigate(['/', 'dashboard']);
+    //     } else {
+    //       alert(response.message);
+    //     }
+    //   },
+    //   (err) => {
+    //     console.log('Login with failed!');
+    //     alert('Invalid credentials!');
+    //     console.log(err);
+    //   }
+    // );
 
-    // this.userService.setUser({
-    //   email: this.loginForm.value.email,
-    //   username: this.loginForm.value.email,
-    //   imageUrl:
-    //     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx0hLwdzwhC7R2B2pn7e9-YYqpSiTQsZMDDA&usqp=CAU',
-    // });
+    this.userService.setUser({
+      email: this.loginForm.value.email,
+      username: this.loginForm.value.email,
+      imageUrl:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx0hLwdzwhC7R2B2pn7e9-YYqpSiTQsZMDDA&usqp=CAU',
+    });
 
-    // console.log(this.userService.getUser());
+    console.log(this.userService.getUser());
 
-    // this.resetLoginForm();
+    this.resetLoginForm();
 
-    // this.router.navigate(['/', 'dashboard']);
+    this.router.navigate(['/', 'dashboard']);
   }
 
   onRegister(): void {
