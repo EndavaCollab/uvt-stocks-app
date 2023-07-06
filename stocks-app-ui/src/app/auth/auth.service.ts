@@ -19,20 +19,14 @@ export class AuthService {
       email: payload.email,
       password: payload.password,
     };
+
     console.log(
       `${this.environmentHandlerService.getCurrentApiUrl()}/api/auth/login`
     );
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
     return this.httpClient.post(
       `${this.environmentHandlerService.getCurrentApiUrl()}/api/auth/login`,
-      body,
-      httpOptions
+      body
     );
   }
 

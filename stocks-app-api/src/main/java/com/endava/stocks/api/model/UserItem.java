@@ -22,6 +22,7 @@ public class UserItem {
 
     @NotNull
     @NotEmpty
+
     @Email(message = "Email should be valid")
     @Column(name = "email")
     private String email;
