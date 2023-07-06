@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 # Database parameters
+# Comm demo ##
 Description: AWS CloudFormation Template for Stock App Deployment
 Parameters:
   DBName:
