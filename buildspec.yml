@@ -14,7 +14,7 @@ artifacts:
   files:
     - 'appspec.yml'
     - 'deployment/scripts/*'
-    - 'stocks-app-api/build/libs/*SNAPSHOT.jar'
+    - 'stocks-app-api/build/libs/*.jar'
     - 'stocks-app-ui/build/libs/*.jar'
   # secondary-artifacts:
   #   backend_artifact:
