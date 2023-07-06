@@ -14,9 +14,8 @@ artifacts:
   files:
     - 'appspec.yml'
     - 'deployment/scripts/*'
-    # - 'stocks-app-api/build/libs/*.jar'
-    # - 'stocks-app-ui/build/libs/*.jar'
-    - '*.jar'
+    - 'stocks-app-api/build/libs/*.jar'
+    - 'stocks-app-ui/build/libs/*.jar'
   # secondary-artifacts:
   #   backend_artifact:
   #     base-directory: stocks-app-api/build/libs/
